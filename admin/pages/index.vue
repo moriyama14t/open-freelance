@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { FreelanceInfoType } from "~/types/freelanceInfoType";
-const { readFreelanceInfo, createFreelanceInfo } = useFreelanceInfo();
+const { readFreelanceInfo, createFreelanceInfo, deleteFreelanceInfo } = useFreelanceInfo();
 const { freelanceInfoArray, pending, error, refresh } =
   await readFreelanceInfo();
 
@@ -21,6 +21,14 @@ const create = async (req: FreelanceInfoType) => {
   };
   isFormShow.value = false;
 };
+
+const deleteInfo = async (id: number) => {
+  await deleteFreelanceInfo(id);
+  // TODO: refreshが必要  await refreshNuxtData();?
+  freelanceInfoArray.value = freelanceInfoArray.value!.filter(
+    (freelanceInfo) => freelanceInfo.id !== id
+  );
+}
 </script>
 <template>
   <div class="m-20">
@@ -86,6 +94,7 @@ const create = async (req: FreelanceInfoType) => {
           <td>{{ freelanceInfo.name }}</td>
           <td>{{ freelanceInfo.company_name }}</td>
           <td>{{ freelanceInfo.description }}</td>
+          <td><button class="bg-orange-300 hover:bg-orange-500 text-white font-bold py-1 px-2 rounded" @click="deleteInfo(freelanceInfo.id!)">削除</button></td>
         </tr>
       </tbody>
     </table>

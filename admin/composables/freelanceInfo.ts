@@ -15,6 +15,14 @@ export const useFreelanceInfo = () =>{
     return { result, createPending, createError, refresh }
   }
 
+  const deleteFreelanceInfo = async (id: number) => {
+    const { data:deleteResult, pending:deletePending, error:deleteError, refresh } = await useFetch<FreelanceInfoType>('/api/freelanceInfo',{
+      method: 'delete',
+      body: {id :id},
+    });
+    return { deleteResult, deletePending, deleteError, refresh }
+  }
 
-  return { readFreelanceInfo,createFreelanceInfo }
+
+  return { readFreelanceInfo,createFreelanceInfo,deleteFreelanceInfo }
 }
