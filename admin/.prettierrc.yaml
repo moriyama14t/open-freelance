@@ -1,0 +1,30 @@
+# 1行で表示する文字数
+printWidth: 100
+# インデントのサイズ
+tabWidth: 2
+# インデントにスペースの代わりにタブを使うかどうか
+useTabs: true
+# 文のあとにセミコロンを付けるかどうか
+semi: true
+# 文字列などをクォートで囲むとき、シングルクォートで囲むかどうかを設定
+singleQuote: true
+# オブジェクトのプロパティ名をクォートで囲むかどうかを設定
+quoteProps: 'as-needed'
+# 複数行のときの末尾のカンマを付けるかどうか
+trailingComma: 'es5'
+# オブジェクトリテラルの {} （ブラケット）内の前後にスペースを入れるかどうか
+bracketSpacing: true
+# HTMLタグの閉じカッコを同一行に含めるかどうか
+bracketSameLine: false
+# アロー関数のパラメーターをカッコで囲みます
+arrowParens: 'always'
+# HTML 空白の感度
+htmlWhitespaceSensitivity: 'css'
+# vueIndentScriptAndStyle scriptタグとstyleタグのインデント
+vueIndentScriptAndStyle: false
+# 改行コードの指定
+endOfLine: 'lf'
+# 組み込み言語のフォーマット
+embeddedLanguageFormatting: 'auto'
+# HTML、Vue、JSXにおいて、属性を１行づつ改行します。
+singleAttributePerLine: false
