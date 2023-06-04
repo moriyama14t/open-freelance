@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { FreelanceInfoType } from "~/types/freelanceInfoType";
-const { readFreelanceInfo, createFreelanceInfo, deleteFreelanceInfo } = useFreelanceInfo();
+const { readFreelanceInfo, createFreelanceInfo,updateFreelanceInfo, deleteFreelanceInfo } = useFreelanceInfo();
 const { freelanceInfoArray, pending, error, refresh } =
   await readFreelanceInfo();
 
 const isFormShow = ref<boolean>(false);
+
 const request = ref<FreelanceInfoType>({
   name: "",
   company_name: "",
@@ -19,6 +20,33 @@ const create = async (req: FreelanceInfoType) => {
     company_name: "",
     description: "",
   };
+  isFormShow.value = false;
+};
+
+const editInfo = async (req: FreelanceInfoType) => {
+  request.value = {
+    id: req.id,
+    name: req.name,
+    company_name: req.company_name,
+    description: req.description,
+  };
+  isFormShow.value = true;
+};
+
+const update = async (req: FreelanceInfoType) => {
+  const { updateResult, updatePending, updateError } = await updateFreelanceInfo(req);
+  // TODO: refreshが必要
+  request.value = {
+    name: "",
+    company_name: "",
+    description: "",
+  };
+  freelanceInfoArray.value = freelanceInfoArray.value!.map((freelanceInfo) => {
+    if (freelanceInfo.id === req.id) {
+      return updateResult.value!;
+    }
+    return freelanceInfo;
+  });
   isFormShow.value = false;
 };
 
@@ -77,7 +105,8 @@ const deleteInfo = async (id: number) => {
           />
         </div>
       </div>
-      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="create(request)">保存</button>
+      <button v-if="request.id" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="update(request)">更新</button>
+      <button v-else class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="create(request)">保存</button>
     </form>
     <table class="table-auto m-5">
       <thead>
@@ -86,6 +115,8 @@ const deleteInfo = async (id: number) => {
           <th>サービス名</th>
           <th>会社名</th>
           <th>その他</th>
+          <th v-if="!isFormShow">編集</th>
+          <th v-if="!isFormShow">削除</th>
         </tr>
       </thead>
       <tbody>
@@ -94,7 +125,8 @@ const deleteInfo = async (id: number) => {
           <td>{{ freelanceInfo.name }}</td>
           <td>{{ freelanceInfo.company_name }}</td>
           <td>{{ freelanceInfo.description }}</td>
-          <td><button class="bg-orange-300 hover:bg-orange-500 text-white font-bold py-1 px-2 rounded" @click="deleteInfo(freelanceInfo.id!)">削除</button></td>
+          <td v-if="!isFormShow"><button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded" @click="editInfo(freelanceInfo)">編集</button></td>
+          <td v-if="!isFormShow"><button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 rounded" @click="deleteInfo(freelanceInfo.id!)">削除</button></td>
         </tr>
       </tbody>
     </table>

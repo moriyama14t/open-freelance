@@ -17,6 +17,29 @@ export default defineEventHandler(async(e) => {
       return createFreelanceInfo;
     }
 
+    if (method === 'PUT') {
+      const body = await readBody(e);
+      
+      if (!body) {
+        const detailError = createError({
+          statusCode: 400,
+          statusMessage: 'No item provided',
+          data: {},
+        });
+        sendError(e, detailError);
+      }
+      let temp = null;
+      try {
+        temp = await prisma.service.update({
+          where: { id: body.id },
+          data: body,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      return temp;
+    }
+
     if (method === 'DELETE') {
       const body = await readBody(e);
       if (!body) {
