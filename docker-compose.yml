@@ -11,7 +11,7 @@ services:
     ports: 
       - "5433:5432"
     volumes:
-      - volume_postgres:/var/lib/postgresql/data
+      - volume_postgres:/var/lib/open_freelancedb/data
       - ./postgres_service/initdb.d:/docker-entrypoint-initdb.d
 
   service_pgadmin:
