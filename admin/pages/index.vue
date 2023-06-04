@@ -16,6 +16,7 @@ const create = async (req: FreelanceInfoType) => {
 </script>
 <template>
   <div>
+    <div class="text-3xl">tailwind</div>
     <div>{{ freelanceInfoArray }}</div>
     <button @click="create(request)">保存</button>
     
