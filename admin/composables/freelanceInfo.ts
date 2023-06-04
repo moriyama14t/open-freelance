@@ -3,10 +3,18 @@ import {FreelanceInfoType } from '@/types/freelanceInfoType'
 export const useFreelanceInfo = () =>{
 
   const readFreelanceInfo = async () => {
-    const { data:response, pending, error, refresh } = await useFetch<FreelanceInfoType[]>('/api/freelanceInfo');
-    return { response, pending, error, refresh }
+    const { data:freelanceInfoArray, pending, error, refresh } = await useFetch<FreelanceInfoType[]>('/api/freelanceInfo');
+    return { freelanceInfoArray, pending, error, refresh }
+  }
+
+  const createFreelanceInfo = async (freelanceInfo: FreelanceInfoType) => {
+    const { data:result, pending:createPending, error:createError, refresh } = await useFetch<FreelanceInfoType>('/api/freelanceInfo',{
+      method: 'post',
+      body: freelanceInfo,
+    });
+    return { result, createPending, createError, refresh }
   }
 
 
-  return { readFreelanceInfo }
+  return { readFreelanceInfo,createFreelanceInfo }
 }
