@@ -1,7 +1,7 @@
 
 ## 個人開発(口コミサービス開発)
 システム構成イメージ図
-![システム構成イメージ図](https://github.com/moriyama14t/open-freelance/assets/56777467/ba44d9d1-b7b8-4ea2-9a69-7994fa7965b7)
+![システム構成イメージ図](https://github.com/moriyama14t/open-freelance/assets/56777467/be1031d7-e51d-41f6-9315-a47e005bbbd4)
 
 ## 使用技術案
 
