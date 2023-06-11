@@ -60,6 +60,7 @@ const deleteInfo = async (id: number) => {
 </script>
 <template>
 	<div class="m-20">
+		<h1 class="m-2">エージェント一覧</h1>
 		<button
 			v-if="isFormShow"
 			class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
